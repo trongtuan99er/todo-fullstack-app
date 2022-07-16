@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
       expiresIn: "7d"
     })
 
-    res.cookie("acess-token", token, {
+    res.cookie("access-token", token, {
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production'
@@ -108,7 +108,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/current",requireAuth, (req, res) => {
   if(!req.user){
-    return res.status(401).send("unauthoriz ed ")
+    return res.status(401).send("unauthorized")
   }
   return res.json(req.user)
 })

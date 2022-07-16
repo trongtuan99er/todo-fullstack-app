@@ -2,7 +2,7 @@ const User = require("../models/User")
 const jwt = require("jsonwebtoken")
 
 const requireAuth = async (req, res, next) => {
-  const token = req.cookie["acess-token"];
+  const token = req.cookies["access-token"];
   let isAuthed = false;
 
   if(token) {
@@ -18,15 +18,15 @@ const requireAuth = async (req, res, next) => {
           isAuthed = true;
         }
       } catch {
-        isAuthed = false
+        isAuthed = false;
       }
     } catch {
-      isAuthed = false
+      isAuthed = false;
     }
   }
   if(isAuthed) {
-    return next()
-  }else{
+    return next();
+  } else {
     return res.status(401).send("unAuthorised")
   }
 }
