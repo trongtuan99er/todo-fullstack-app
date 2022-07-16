@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -17,6 +18,12 @@ app.post("/name", (req,res) => {
     return res.status(400).json({error : "no name "});
   }
 })
-app.listen(process.env.PORT, ()=> {
-  console.log(`server run on port ${process.env.PORT}`);
-})
+
+mongoose.connect(process.env.MONGO_URL).then(()=> {
+  console.log("conect to mongo db");
+  app.listen(process.env.PORT, ()=> {
+    console.log(`server run on port ${process.env.PORT}`);
+  })
+}).catch((error) => {
+  console.log(error);
+});
