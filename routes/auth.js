@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-
+const validateRegisterInput = require("../validation/registerValdation")
 //@route  GET api/auth/test
 //@desc   test the auth route
 //@acess  Public
@@ -15,6 +15,20 @@ router.get("/test",(req, res) => {
 //@acess  Public
 router.post("/register", async (req, res) => {
   try {
+    // valdata register
+    const { errors, isValid } = validateRegisterInput(req.body)
+    if(!isValid) {
+      return res.status(400).json(errors);
+    }
+    // check existing user 
+    const existingEmail = await User.findOne({
+      // check type of email
+      email: new RegExp("^" + req.body.email + "$", "i")
+    });
+
+    if(existingEmail) {
+      return res.status(400).json({error: "email already existing"})
+    }
     // hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, 12)
     // create new user
