@@ -146,4 +146,33 @@ router.put("/:todoId", requiresAuth, async(req, res)=> {
   }
 });
 
+// @route   DELETE /api/todos/:todoId
+// @desc    Delete a todo
+// @acess   Private
+router.delete("/:todoId", requiresAuth, async(req, res)=> {
+  try{
+    // find todo of current user
+    const todo = await ToDo.find({
+      user: req.user._id,
+      _id: req.params.todoId
+    })
+
+    if(!todo) {
+      return res.status(404).json({error: "Không thể tìm thấy việc cần làm"})
+    }
+
+    // remove todo from db
+    await ToDo.findOneAndRemove({
+        user: req.user._id,
+        _id: req.params.todoId
+      });
+
+    return res.json({sucess: true})
+
+  }catch(err){
+    console.log(err);
+    return res.status(500).send(err.message)
+  }
+});
+
 module.exports = router
