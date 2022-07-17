@@ -34,3 +34,12 @@ input,
 textarea {
   font-family: "Source Sans Pro", sans-serif;
 }
+
+
+.loading {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
