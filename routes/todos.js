@@ -104,4 +104,46 @@ router.put("/:todoId/complete", requiresAuth, async(req, res) => {
   }
 })
 
+
+// @route   PUT /api/todos/:todoId
+// @desc    Update new todo content
+// @acess   Private
+
+router.put("/:todoId", requiresAuth, async(req, res)=> {
+  try {
+    const todo = await ToDo.findOne({
+      user: req.user._id,
+      _id: req.params.todoId
+    })
+
+    if(!todo) {
+      return res.status(404).json({error: "Không thể tìm thấy việc cần làm"})
+    }
+    
+    // validate new tdo content
+    const { errors, isValid } = valdateTodoInput(req.body)
+    if(!isValid) {
+      return res.status(400).json(errors)
+    }
+    // update new content after validate
+    const updatedTodo = await ToDo.findOneAndUpdate(
+      {
+        user: req.user._id,
+        _id: req.params.todoId
+      },
+      {
+        content: req.body.content,
+      },
+      {
+        new: true
+      }
+    )
+    return res.json(updatedTodo)
+
+  }catch(err){
+    console.log(err);
+    return res.status(500).send(err.message)
+  }
+});
+
 module.exports = router
