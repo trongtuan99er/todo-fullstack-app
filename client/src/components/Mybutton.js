@@ -13,6 +13,14 @@ const StyleButton = styled('button')({
     '&:hover': {
       backgroundColor: '#026158',
       cursor: 'pointer'
+    },
+    '& a': {
+      textDecoration: 'none',
+      color: '#fff'
+    },
+    '&:disabled': {
+      pointerEvents: 'none',
+      opacity: .5
     }
 });
 

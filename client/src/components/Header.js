@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { Box } from "@mui/material"
 import MyButton from "./Mybutton";
+import { useGlobalContext } from "../context/GolobalContext";
 
 const useStyles = makeStyles({
   mainHeader: {
@@ -32,6 +33,8 @@ const useStyles = makeStyles({
 
 const Header = () => {
   const classes = useStyles()
+  const { user } = useGlobalContext();
+  const { pathname } = useLocation();
   return ( 
     <Box className={classes.mainHeader}>
       <Box className={classes.headerInner}>
@@ -42,9 +45,25 @@ const Header = () => {
         </Box>
 
         <Box className={classes.innerRight}>
-          <MyButton>
-            Đăng xuẩt
-          </MyButton>
+          {user ? (   
+              <MyButton>
+                Đăng xuẩt
+              </MyButton>) : (
+                pathname === '/' ? (
+                  <MyButton>
+                    <Link to='/register'>
+                      Đăng ký 
+                    </Link>
+                  </MyButton>
+                ) : (
+                  <MyButton>
+                    <Link to='/'>
+                      Đăng Nhập 
+                    </Link>
+                  </MyButton>
+                )
+            )
+          }
         </Box>
       </Box>
     </Box>
