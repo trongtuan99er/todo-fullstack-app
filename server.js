@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser")
 // import routes
 
 const authRoute = require("./routes/auth")
+const todosRoute = require("./routes/todos")
+
 const app = express();
 
 app.use(express.json());
@@ -17,6 +19,7 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/auth", authRoute)
+app.use("/api/todos", todosRoute)
 
 mongoose.connect(process.env.MONGO_URL).then(()=> {
   console.log("conect to mongo db");
