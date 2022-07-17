@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { Box } from "@mui/material"
+import MyButton from "./Mybutton";
 
 const useStyles = makeStyles({
   mainHeader: {
@@ -26,22 +27,7 @@ const useStyles = makeStyles({
         opacity: .7
       }
     }
-  },
-  btn: {
-    display: 'inline-block',
-    backgroundColor: '#00a796',
-    padding: '10px 20px',
-    border: 'none',
-    color: '#fff',
-    borderRadius: 5,
-    fontSize: '1rem',
-    transition: 'all .2s ease',
-    '&:hover': {
-      backgroundColor: '#026158',
-      cursor: 'pointer'
-    }
   }
-
 })
 
 const Header = () => {
@@ -56,9 +42,9 @@ const Header = () => {
         </Box>
 
         <Box className={classes.innerRight}>
-          <button className={classes.btn}>
-            Đăng Xuất
-          </button>
+          <MyButton>
+            Đăng xuẩt
+          </MyButton>
         </Box>
       </Box>
     </Box>
