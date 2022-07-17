@@ -80,11 +80,20 @@ export const GlobalProvider = (props) => {
       dispatch({type: "RESET_USER"})
     }
   }
-
-  
+  // logout current user
+  const logout = async () => {
+    try{
+      await axios.put("/api/auth/logout");
+      dispatch({type: "RESET_USER"})
+    }catch(err){
+      console.log(err);
+      dispatch({type: "RESET_USER"})
+    }
+  }
   const value = {
     ...state,
     getCurrentUSer,
+    logout
   }
   return (
     <GlobalContext.Provider value={value}>
