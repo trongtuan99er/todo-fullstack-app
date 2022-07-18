@@ -24,6 +24,6 @@ const StyleButton = styled('button')({
     }
 });
 
-export default function MyButton({children}) {
-  return <StyleButton>{children}</StyleButton>;
+export default function MyButton({children, onClick}) {
+  return <StyleButton onClick={onClick}>{children}</StyleButton>;
 }

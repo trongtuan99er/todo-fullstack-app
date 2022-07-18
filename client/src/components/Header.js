@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 
 const Header = () => {
   const classes = useStyles()
-  const { user } = useGlobalContext();
+  const { user, logout } = useGlobalContext();
   const { pathname } = useLocation();
   return ( 
     <Box className={classes.mainHeader}>
@@ -46,7 +46,7 @@ const Header = () => {
 
         <Box className={classes.innerRight}>
           {user ? (   
-              <MyButton>
+              <MyButton onClick={logout}>
                 Đăng xuẩt
               </MyButton>) : (
                 pathname === '/' ? (
