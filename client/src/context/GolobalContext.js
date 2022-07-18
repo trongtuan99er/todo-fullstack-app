@@ -52,10 +52,10 @@ export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(GlobalReducer, initState)
 
   useEffect(()=> {
-    getCurrentUSer();
+    getCurrentUser();
   },[])
   // action get current user
-  const getCurrentUSer = async() => {
+  const getCurrentUser = async() => {
     try{
       const res = await axios.get("/api/auth/current")
       if(res.data) {
@@ -92,7 +92,7 @@ export const GlobalProvider = (props) => {
   }
   const value = {
     ...state,
-    getCurrentUSer,
+    getCurrentUser,
     logout
   }
   return (
