@@ -149,6 +149,19 @@ export const GlobalProvider = (props) => {
       })
     }
   }
+  // update new content for todo item
+  const updateTodo = (todo) => {
+    if(!todo.complete) {
+      const newInCompleteTodo = state.incompleteTodos.map(
+        (incompleteTodo) => incompleteTodo._id !== todo._id ? incompleteTodo : todo
+      )
+      dispatch({
+        type: "SET_INCOMPLETE_TODO",
+        payload: newInCompleteTodo
+      })
+    }
+  }
+
   const value = {
     ...state,
     getCurrentUser,
@@ -156,7 +169,8 @@ export const GlobalProvider = (props) => {
     addTodo,
     todoComplete,
     todoInComplete,
-    removeTodo
+    removeTodo,
+    updateTodo
   }
   return (
     <GlobalContext.Provider value={value}>

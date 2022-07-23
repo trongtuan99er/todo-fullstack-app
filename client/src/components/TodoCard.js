@@ -57,7 +57,7 @@ const TodoCard = ({todo}) => {
   const [content, setContent] = React.useState(todo.content)
   const [editing, setEditing] = React.useState(false)
   const inputRef = React.useRef(null)
-  const { todoComplete, todoInComplete, removeTodo } = useGlobalContext()
+  const { todoComplete, todoInComplete, removeTodo, updateTodo } = useGlobalContext()
   
   const onEdit = (e) => {
     e.preventDefault()
@@ -93,6 +93,16 @@ const TodoCard = ({todo}) => {
       })
     }
   }
+  
+  const saveTodo = e => {
+    e.preventDefault()
+    axios.put(`/api/todos/${todo._id}`, {content}).then(res => {
+      updateTodo(res.data)
+      setEditing(false)
+    }).catch(()=>{
+      stopEditing()
+    })
+  }
 
   return (
     <Box className={clsx(classes.todo, todo.complete ? classes.todoComplete : "" )}>
@@ -117,7 +127,7 @@ const TodoCard = ({todo}) => {
       ) : (
         <>
           <button onClick={stopEditing}>Huỷ</button>
-          <button>Lưu</button>
+          <button onClick={saveTodo}>Lưu</button>
         </>
       )}
       </Box>
