@@ -131,13 +131,32 @@ export const GlobalProvider = (props) => {
       )
     })
   }
+  // remove todo
+  const removeTodo = (todo) => {
+    if(todo.complete){
+      dispatch({
+        type: "SET_COMPLETE_TODO",
+        payload: state.completeTodos.filter(
+          (completeTodo) => completeTodo._id !== todo._id
+        )
+      })
+    }else {
+      dispatch({
+        type: "SET_INCOMPLETE_TODO",
+        payload: state.incompleteTodos.filter(
+          (incompleteTodo) => incompleteTodo._id !== todo._id
+        )
+      })
+    }
+  }
   const value = {
     ...state,
     getCurrentUser,
     logout,
     addTodo,
     todoComplete,
-    todoInComplete
+    todoInComplete,
+    removeTodo
   }
   return (
     <GlobalContext.Provider value={value}>

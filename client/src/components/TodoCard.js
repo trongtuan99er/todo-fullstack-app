@@ -57,7 +57,7 @@ const TodoCard = ({todo}) => {
   const [content, setContent] = React.useState(todo.content)
   const [editing, setEditing] = React.useState(false)
   const inputRef = React.useRef(null)
-  const { todoComplete, todoInComplete } = useGlobalContext()
+  const { todoComplete, todoInComplete, removeTodo } = useGlobalContext()
   
   const onEdit = (e) => {
     e.preventDefault()
@@ -85,6 +85,15 @@ const TodoCard = ({todo}) => {
     })
   }
 
+  const deleteTodo = e => {
+    e.preventDefault()
+    if(window.confirm("Xoá công việc này chứ ?")){
+      axios.delete(`/api/todos/${todo._id}`).then(()=>{
+        removeTodo(todo)
+      })
+    }
+  }
+
   return (
     <Box className={clsx(classes.todo, todo.complete ? classes.todoComplete : "" )}>
       <input type="checkbox" 
@@ -103,7 +112,7 @@ const TodoCard = ({todo}) => {
       {!editing ? (
         <>
           {!todo.complete && <button onClick={onEdit}>Sửa</button>}
-          <button>Xoá</button>
+          <button onClick={deleteTodo}>Xoá</button>
         </>
       ) : (
         <>
