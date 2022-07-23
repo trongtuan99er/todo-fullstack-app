@@ -98,11 +98,26 @@ export const GlobalProvider = (props) => {
       payload: [todo, ...state.incompleteTodos]
     })
   }
+
+  // make todo complete
+  const todoComplete = (todo) => {
+    dispatch({
+      type: "SET_INCOMPLETE_TODO",
+      payload: state.incompleteTodos.filter(
+        (incompleteTodo) => incompleteTodo._id !== todo._id
+      )
+    })
+    dispatch({
+      type: "SET_COMPLETE_TODO",
+      payload: [todo, ...state.completeTodos]
+    })
+  }
   const value = {
     ...state,
     getCurrentUser,
     logout,
-    addTodo
+    addTodo,
+    todoComplete
   }
   return (
     <GlobalContext.Provider value={value}>

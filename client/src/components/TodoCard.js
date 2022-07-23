@@ -2,6 +2,9 @@ import React from 'react'
 import { makeStyles } from '@mui/styles';
 import { Box } from "@mui/material"
 import clsx from 'clsx'
+import axios from 'axios';
+import { useGlobalContext } from '../context/GolobalContext';
+
 const useStyles = makeStyles({
   todo: {
     display: 'flex',
@@ -54,6 +57,7 @@ const TodoCard = ({todo}) => {
   const [content, setContent] = React.useState(todo.content)
   const [editing, setEditing] = React.useState(false)
   const inputRef = React.useRef(null)
+  const { todoComplete } = useGlobalContext()
   
   const onEdit = (e) => {
     e.preventDefault()
@@ -66,9 +70,25 @@ const TodoCard = ({todo}) => {
     setEditing(false)
     setContent(todo.content)
   }
+
+  const makeComplete = e => {
+    e.preventDefault()
+    axios.put(`/api/todos/${todo._id}/complete`).then(res => {
+      todoComplete(res.data)
+    })
+  }
+
+  const makeInComplete = e => {
+    e.preventDefault()
+
+  }
+
   return (
     <Box className={clsx(classes.todo, todo.complete ? classes.todoComplete : "" )}>
-      <input type="checkbox" checked={todo.complete}/>
+      <input type="checkbox" 
+        checked={todo.complete}
+        onChange={!todo.complete ? makeComplete : makeInComplete}
+      />
       <input 
         type="text" 
         ref={inputRef} 
