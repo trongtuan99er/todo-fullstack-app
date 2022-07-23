@@ -57,7 +57,7 @@ const TodoCard = ({todo}) => {
   const [content, setContent] = React.useState(todo.content)
   const [editing, setEditing] = React.useState(false)
   const inputRef = React.useRef(null)
-  const { todoComplete } = useGlobalContext()
+  const { todoComplete, todoInComplete } = useGlobalContext()
   
   const onEdit = (e) => {
     e.preventDefault()
@@ -80,7 +80,9 @@ const TodoCard = ({todo}) => {
 
   const makeInComplete = e => {
     e.preventDefault()
-
+    axios.put(`/api/todos/${todo._id}/incomplete`).then(res => {
+      todoInComplete(res.data)
+    })
   }
 
   return (
