@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles';
-import { Box, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import clsx from 'clsx'
 const useStyles = makeStyles({
   todo: {

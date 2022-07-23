@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
 import { Box, Typography } from "@mui/material"
 import TodoCard from "./TodoCard";
+import AddTodo from "./AddTodo";
 
 const useStyles = makeStyles({
   root: {
@@ -34,6 +35,7 @@ function Dashboard() {
   },[user, navigate])
   return ( 
     <Box className={classes.root}>
+      <AddTodo />
       <Box className={classes.todos}>
         {incompleteTodos.map((todo) => (
           <TodoCard todo={todo} key={todo._id}/>
