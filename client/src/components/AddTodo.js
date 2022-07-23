@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles';
+import { TextareaAutosize } from "@mui/material"
 import MyButton from '../components/Mybutton'
 import axios from 'axios';
 import { useGlobalContext } from '../context/GolobalContext';
@@ -12,21 +13,20 @@ const useStyles = makeStyles({
     backgroundColor: '#2a343f',
     marginBottom: 30,
     borderRadius: 5,
-    '& input': {
-      width: '100%',
-      marginRight: 20,
-      fontSize: '1.125rem',
-      padding: '9px 15px',
-      backgroundColor: '#1f2732',
-      border: 'none',
-      borderRadius: 5,
-      color: '#fff',
-      '&:focus': {
-        outline: 'none'
-      }
-    }
   },
-
+  addInput: {
+    width: '100%',
+    marginRight: 20,
+    fontSize: '1.5rem',
+    padding: '8px 16px',
+    backgroundColor: '#1f2732',
+    border: 'none',
+    borderRadius: 5,
+    color: '#fff',
+    '&:focus': {
+      outline: 'none'
+    }
+  }
 })
 
 const AddTodo = () => {
@@ -45,7 +45,14 @@ const AddTodo = () => {
 
   return (
     <form onSubmit={onSubmitForm} className={classes.root}>
-      <input type="text" value={content} onChange={e => setContent(e.target.value)} />
+      <TextareaAutosize 
+        className={classes.addInput}
+        minRows={1}
+        maxRows={5}
+        type="text" 
+        value={content} 
+        onChange={e => setContent(e.target.value)}
+      />
 
       <MyButton className={classes.addBtn} type='submit' disabled={content.length === 0}>
         Thêm

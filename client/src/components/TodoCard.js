@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles';
-import { Box } from "@mui/material"
+import { Box, TextareaAutosize } from "@mui/material"
 import clsx from 'clsx'
 import axios from 'axios';
 import { useGlobalContext } from '../context/GolobalContext';
@@ -15,15 +15,6 @@ const useStyles = makeStyles({
     borderRadius: 5,
     '&:not(:last-child)': {
       marginBottom: 15
-    },
-    '& input[type="text"]': {
-      backgroundColor: 'transparent',
-      marginLeft: 10,
-      border: 'none',
-      fontSize: '1.125rem',
-      color: '#fff',
-      flexGrow: 1,
-      outline: 'none'
     }
   },
   todoControl: {
@@ -36,6 +27,7 @@ const useStyles = makeStyles({
       color: '#fff',
       fontSize: '1rem',
       transition: 'all 0.3s ease',
+      marginLeft: 10,
       '&:not(:last-child)': {
         marginRight: 10,
       },
@@ -45,8 +37,17 @@ const useStyles = makeStyles({
       }
     }
   },
+  todoItem: {
+    backgroundColor: 'transparent',
+    marginLeft: 10,
+    border: 'none',
+    fontSize: '1.125rem',
+    color: '#fff',
+    flexGrow: 1,
+    outline: 'none'
+  },
   todoComplete: {
-    '& input[type="text"]': {
+    '& textarea[type="text"]': {
       textDecoration: 'line-through'
     }
   }
@@ -110,7 +111,10 @@ const TodoCard = ({todo}) => {
         checked={todo.complete}
         onChange={!todo.complete ? makeComplete : makeInComplete}
       />
-      <input 
+      <TextareaAutosize 
+        className={classes.todoItem}
+        minRows={1}
+        maxRows={5}
         type="text" 
         ref={inputRef} 
         value={content} 

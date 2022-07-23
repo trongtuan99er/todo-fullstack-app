@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     maxWidth: 768,
     margin: '0 auto',
     width: '100%',
-    padding: 16,
+    padding: '20px 16px 40px',
   },
   todos: {
     '&:not(:last-child)': {
@@ -32,21 +32,22 @@ function Dashboard() {
   },[user, navigate])
   return ( 
     <Box className={classes.root}>
-      <Typography variant="h6" color="#fff" marginBottom="10px">Hãy thêm việc bạn cần làm !</Typography>
+      <Typography variant="h6" color="#fff" marginBottom="px">Hãy thêm việc bạn cần làm !</Typography>
       <AddTodo />
-      <Box className={classes.todos}>
-        <Typography 
-          variant="caption" 
-          fontSize="1.25rem"
-          marginBottom="10px"
-          display="block"
-        >
-          Việc cần làm:
-        </Typography>
-        {incompleteTodos.map((todo) => (
-          <TodoCard todo={todo} key={todo._id}/>
-        ))}
-      </Box>
+      {incompleteTodos.length > 0 && 
+        <Box className={classes.todos}>
+          <Typography 
+            variant="caption" 
+            fontSize="1.25rem"
+            marginBottom="10px"
+            display="block"
+          >
+            Việc cần làm:
+          </Typography>
+          {incompleteTodos.map((todo) => (
+            <TodoCard todo={todo} key={todo._id}/>
+          ))}
+        </Box>}
 
       {completeTodos.length > 0 && 
         <Box className={classes.todos}>
