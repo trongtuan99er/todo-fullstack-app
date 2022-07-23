@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { makeStyles } from '@mui/styles';
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import MyButton from "./Mybutton";
 import { useGlobalContext } from "../context/GolobalContext";
 
@@ -45,10 +45,14 @@ const Header = () => {
         </Box>
 
         <Box className={classes.innerRight}>
-          {user ? (   
+          {user ? (
+            <Box display="flex" alignItems="center">
+              <Typography variant="h6" marginRight="6px" color="#fff">Hi: {user.name}!</Typography>
               <MyButton onClick={logout}>
                 Đăng xuẩt
-              </MyButton>) : (
+              </MyButton>
+            </Box>
+          ) : (
                 pathname === '/' ? (
                   <MyButton>
                     <Link to='/register'>

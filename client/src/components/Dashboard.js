@@ -17,15 +17,12 @@ const useStyles = makeStyles({
     '&:not(:last-child)': {
       marginBottom: 30
     }
-  },
-  todoTitle: {
-    fontSize: '2rem',
-    marginBottom: 15,
   }
 })
 function Dashboard() {
   const classes = useStyles()
   const { user, completeTodos, incompleteTodos } = useGlobalContext();
+  console.log(user);
   const navigate = useNavigate();
 
   React.useEffect(()=> {
@@ -35,8 +32,17 @@ function Dashboard() {
   },[user, navigate])
   return ( 
     <Box className={classes.root}>
+      <Typography variant="h6" color="#fff" marginBottom="10px">Hãy thêm việc bạn cần làm !</Typography>
       <AddTodo />
       <Box className={classes.todos}>
+        <Typography 
+          variant="caption" 
+          fontSize="1.25rem"
+          marginBottom="10px"
+          display="block"
+        >
+          Việc cần làm:
+        </Typography>
         {incompleteTodos.map((todo) => (
           <TodoCard todo={todo} key={todo._id}/>
         ))}
@@ -44,7 +50,14 @@ function Dashboard() {
 
       {completeTodos.length > 0 && 
         <Box className={classes.todos}>
-        <Typography className={classes.todoTitle}>Công việc đã xong:</Typography>
+        <Typography 
+          variant="caption" 
+          fontSize="1.25rem"
+          marginBottom="10px"
+          display="block"
+        >
+          Việc đã xong:
+        </Typography>
         {completeTodos.map((todo)=> (
           <TodoCard todo={todo} key={todo._id}/>
         ))}
